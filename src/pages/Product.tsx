@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import Container from "../component/Container"
 
 function Product() {
@@ -13,8 +14,13 @@ function Product() {
                 </div>
             </div>
             <div className="col-span-2 bg-blue-300 rounded-md">
-                <img src="" alt="img" />
+            <img src="" alt="img" />
+            <div className="flex items-center justify-center">
+              <Link to="/cart" >
+                <button className="px-4 py-2 bg-red-500 text-white rounded-md">Add to Cart</button>
+                </Link>
             </div>
+          </div>
         </div>
       </Container>
     </div>

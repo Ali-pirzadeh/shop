@@ -5,6 +5,7 @@ import Products from './pages/Products'
 import NotFind from './pages/NotFind'
 import Layout from './component/Layout'
 import Product from './pages/Product'
+import Cart from './pages/Cart'
 
 function App() {
 
@@ -14,8 +15,10 @@ function App() {
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/products' element={<Products />} />
-      <Route path='/*' element={<NotFind />} />
       <Route path='/product/:id' element={<Product />} />
+      <Route path='/cart' element={<Cart />} />
+      <Route path='/*' element={<NotFind />} />
+
     </Routes>
     </Layout>
     
