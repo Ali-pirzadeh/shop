@@ -6,11 +6,12 @@ import NotFind from './pages/NotFind'
 import Layout from './component/Layout'
 import Product from './pages/Product'
 import Cart from './pages/Cart'
+import ShopContext from './context/ShopContext'
 
 function App() {
 
   return (
- 
+    <ShopContext>
     <Layout>
     <Routes>
       <Route path='/' element={<Home />} />
@@ -18,9 +19,9 @@ function App() {
       <Route path='/product/:id' element={<Product />} />
       <Route path='/cart' element={<Cart />} />
       <Route path='/*' element={<NotFind />} />
-
     </Routes>
-    </Layout>
+      </Layout>
+      </ShopContext>
     
   )
 }
