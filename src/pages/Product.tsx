@@ -3,6 +3,7 @@ import Container from "../component/Container"
 import { useEffect, useState } from "react"
 import { getProduct } from "../apiServer/api"
 import { IProduct } from "../type/server"
+import { useShoppingCartContext } from "../context/ShopContext"
 
 
 
@@ -10,7 +11,10 @@ import { IProduct } from "../type/server"
 function Product() {
 
   const params = useParams<{ id: string }>()
-  const [product , setProduct] = useState<IProduct>()
+  const [product, setProduct] = useState<IProduct>()
+  
+    const { cartItems } = useShoppingCartContext()
+  
 
   useEffect(() => {
     getProduct(params.id as string).then((result)=>{setProduct(result)})

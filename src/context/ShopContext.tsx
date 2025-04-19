@@ -1,20 +1,30 @@
-import { createContext, useState } from "react"
+import { createContext, useContext, useState } from "react"
 
 interface IShopContext {
     children: React.ReactNode;
 }
 
 
-interface IShoppingCardContext {
-    cartItem: [];
+interface ICartItem {
+    id: number;
+    qty: number;
 }
 
-export const ShoppingCardContext = createContext<IShoppingCardContext>({cartItem:[]})
+interface IShoppingCardContext {
+    cartItems: ICartItem[];
+}
+
+export const ShoppingCardContext = createContext({} as IShoppingCardContext)
+
+
+export const useShoppingCartContext = () => {
+    return useContext(ShoppingCardContext)
+}
 
 function ShopContext({ children }: IShopContext) {
-    const [cartItem,setCartItem] = useState<[]>([])
+    const [cartItems,setCartItem] = useState<ICartItem[]>([])
     return (
-        <ShoppingCardContext.Provider value={{cartItem}}>
+        <ShoppingCardContext.Provider value={{cartItems}}>
             {children}
       </ShoppingCardContext.Provider>
   )

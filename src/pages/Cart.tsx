@@ -1,7 +1,9 @@
 import CartItem from "../component/CartItem"
 import Container from "../component/Container"
+import { useShoppingCartContext } from "../context/ShopContext"
 
 function Cart() {
+  const { cartItems } = useShoppingCartContext()
   return (
     <div className="mt-4">
         <Container>
