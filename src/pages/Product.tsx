@@ -13,9 +13,9 @@ function Product() {
   const params = useParams<{ id: string }>()
   const [product, setProduct] = useState<IProduct>()
   
-    const {handelIncreaseProduct , cartItems } = useShoppingCartContext()
+    const { handelDecreaseProduct ,handelIncreaseProduct , cartItems } = useShoppingCartContext()
   
-
+  console.log(cartItems);
   useEffect(() => {
     getProduct(params.id as string).then((result)=>{setProduct(result)})
   }, [])
@@ -41,9 +41,12 @@ function Product() {
               <img src={product?.image} alt="img" className="object-contain w-25 h-25" />
             </div>
             <div className="flex items-center justify-center mb-2">
-              <Link to="/cart" >
+              {/* <Link to="/cart" > */}
                 <button onClick={() => handelIncreaseProduct(parseInt(params.id as string))} className="px-4 py-2 bg-red-500 text-white rounded-md">Add to Cart</button>
-                </Link>
+
+                <button onClick={() => handelDecreaseProduct(parseInt(params.id as string))} className="px-4 py-2 bg-red-500 text-white rounded-md"> - </button>
+
+                {/* </Link> */}
             </div>
           </div>
         </div>

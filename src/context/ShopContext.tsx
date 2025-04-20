@@ -12,7 +12,8 @@ interface ICartItem {
 
 interface IShoppingCardContext {
     cartItems: ICartItem[];
-    handelIncreaseProduct: (id : number) => void
+    handelIncreaseProduct: (id: number) => void
+    handelDecreaseProduct : (id : number) => void
 }
 
 export const ShoppingCardContext = createContext({} as IShoppingCardContext)
@@ -26,12 +27,12 @@ function ShopContext({ children }: IShopContext) {
     const [cartItems,setCartItem] = useState<ICartItem[]>([])
 
     function handelIncreaseProduct(id: number) {
-        setCartItem((curentItems) => {
-            let selectItem = curentItems.find((item) => item.id == id);
+        setCartItem((currentItems) => {
+            let selectItem = currentItems.find((item) => item.id == id);
             if (selectItem == null) {
-                return [...curentItems, { id : id , qty : 1}]
+                return [...currentItems, { id : id , qty : 1}]
             } else {
-                return curentItems.map((item) => {
+                return currentItems.map((item) => {
                     if (item.id == id) {
                         return {...item , qty: item.qty + 1}
                     } else {
@@ -40,10 +41,27 @@ function ShopContext({ children }: IShopContext) {
                 })
             }
     })
-}
+    }
+    
+    function handelDecreaseProduct(id: number) {
+        setCartItem((currentItems) => {
+            let selectItem = currentItems.find((item) => item.id == id);
+            if (selectItem?.qty === 1) {
+                return currentItems.filter((item) => item.id !== id)
+            } else {
+                return currentItems.map((item) => {
+                    if (item.id == id) {
+                        return {...item , qty: item.qty - 1}
+                    } else {
+                        return item
+                    }
+                })
+            }
+        })
+    }
 
     return (
-        <ShoppingCardContext.Provider value={{cartItems , handelIncreaseProduct}}>
+        <ShoppingCardContext.Provider value={{cartItems , handelIncreaseProduct , handelDecreaseProduct}}>
             {children}
       </ShoppingCardContext.Provider>
   )
