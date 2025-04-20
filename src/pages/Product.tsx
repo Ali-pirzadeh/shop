@@ -13,7 +13,7 @@ function Product() {
   const params = useParams<{ id: string }>()
   const [product, setProduct] = useState<IProduct>()
   
-    const { cartItems } = useShoppingCartContext()
+    const {handelIncreaseProduct , cartItems } = useShoppingCartContext()
   
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function Product() {
             </div>
             <div className="flex items-center justify-center mb-2">
               <Link to="/cart" >
-                <button className="px-4 py-2 bg-red-500 text-white rounded-md">Add to Cart</button>
+                <button onClick={() => handelIncreaseProduct(parseInt(params.id as string))} className="px-4 py-2 bg-red-500 text-white rounded-md">Add to Cart</button>
                 </Link>
             </div>
           </div>
