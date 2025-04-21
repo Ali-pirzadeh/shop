@@ -13,7 +13,7 @@ function Product() {
   const params = useParams<{ id: string }>()
   const [product, setProduct] = useState<IProduct>()
   
-    const { handelDecreaseProduct ,handelIncreaseProduct , cartItems } = useShoppingCartContext()
+    const {handelerRemove , getProductItem ,handelDecreaseProduct ,handelIncreaseProduct , cartItems } = useShoppingCartContext()
   
   console.log(cartItems);
   useEffect(() => {
@@ -41,12 +41,22 @@ function Product() {
               <img src={product?.image} alt="img" className="object-contain w-25 h-25" />
             </div>
             <div className="flex items-center justify-center mb-2">
-              {/* <Link to="/cart" > */}
-                <button onClick={() => handelIncreaseProduct(parseInt(params.id as string))} className="px-4 py-2 bg-red-500 text-white rounded-md">Add to Cart</button>
 
-                <button onClick={() => handelDecreaseProduct(parseInt(params.id as string))} className="px-4 py-2 bg-red-500 text-white rounded-md"> - </button>
+                {getProductItem(parseInt(params.id as string)) === 0 ? (<button onClick={() => handelIncreaseProduct(parseInt(params.id as string))} className="px-4 py-2 bg-red-500 text-white rounded-md">Add to Cart</button>)
+                : (<>
+                  <div className="grid grid-cols-1">
+                <div className="grid grid-cols-3 gap-2">
+                    <button onClick={() => handelDecreaseProduct(parseInt(params.id as string))} className="px-4 py-2 bg-red-500 text-white rounded-md"> - </button>
+                    <span className="flex justify-center items-center">{ getProductItem(parseInt(params.id as string))}</span>
+                    <button onClick={() => handelIncreaseProduct(parseInt(params.id as string))} className="px-4 py-2 bg-red-500 text-white rounded-md"> + </button>
+                  </div>
+                  <div className="flex justify-center items-center mt-3">
+                    <button onClick={() => handelerRemove(parseInt(params.id as string))} className="px-4 py-2 bg-red-500 text-white rounded-md"> Remove </button>
+                    </div>
+                    </div>
+                 </>)
+}
 
-                {/* </Link> */}
             </div>
           </div>
         </div>

@@ -13,7 +13,9 @@ interface ICartItem {
 interface IShoppingCardContext {
     cartItems: ICartItem[];
     handelIncreaseProduct: (id: number) => void
-    handelDecreaseProduct : (id : number) => void
+    handelDecreaseProduct: (id: number) => void
+    getProductItem: (id: number) => number
+    handelerRemove : (id : number) => void
 }
 
 export const ShoppingCardContext = createContext({} as IShoppingCardContext)
@@ -60,8 +62,16 @@ function ShopContext({ children }: IShopContext) {
         })
     }
 
+    function getProductItem(id: number) {
+        return cartItems.find((item) => item.id === id)?.qty || 0;
+    }
+
+    function handelerRemove(id: number) {
+        setCartItem(current => current.filter((item) => item.id != id))
+    }
+
     return (
-        <ShoppingCardContext.Provider value={{cartItems , handelIncreaseProduct , handelDecreaseProduct}}>
+        <ShoppingCardContext.Provider value={{cartItems , handelIncreaseProduct , handelDecreaseProduct , getProductItem , handelerRemove}}>
             {children}
       </ShoppingCardContext.Provider>
   )
